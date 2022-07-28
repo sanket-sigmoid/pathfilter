@@ -53,7 +53,14 @@ workflows:
         - << pipeline.parameters.project-one >>
         - << pipeline.parameters.run-them-all >> 
     jobs:
-      - project_one   
+      - project_one
+    when: 
+      or: 
+        - << pipeline.parameters.project-two >>
+        - << pipeline.parameters.run-them-all >>     
+    jobs:
+      - project_two
+      
   build-3:
     when: 
       or: 
