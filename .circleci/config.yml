@@ -8,13 +8,13 @@ orbs:
 workflows:
   setup-workflow:
     jobs:
-      - path-filtering/filter:
+      - filter:
           base-revision: main
           config-path: .circleci/continue-config.yml
           mapping: |
             project3/.* project-three true
             shared-things/.* run-them-all true
-      - path-filtering/filter2:
+      - filter2:
           base-revision: main
           config-path: .circleci/continue-config.yml
           mapping: |
