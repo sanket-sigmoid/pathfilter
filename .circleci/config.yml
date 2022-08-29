@@ -63,7 +63,7 @@ workflows:
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>, "run-workflow-d": << pipeline.parameters.manual-workflow-d >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>}' >> /tmp/pipeline-parameters.json
   setup-d:
     when: 
       or: [<<pipeline.parameters.manual-workflow-d>>]
