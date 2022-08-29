@@ -7,6 +7,12 @@ setup: true
 # the path of an updated fileset
 orbs:
   path-filtering: circleci/path-filtering@0.1.1
+  
+parameters:
+  run-integration-tests:
+    description: An internal flag to prevent integration test from running before a development version has been created.
+    type: boolean
+    default: false
 
 workflows:
   # the always-run workflow is always triggered, regardless of the pipeline parameters.
@@ -27,10 +33,6 @@ workflows:
           # path filtering and pipeline parameter value updates are
           # complete. In this case, we are using the parent dynamic
           # configuration itself.
-          parameters:
-            run-integration-tests:
-              description: An internal flag to prevent integration test from running before a development version has been created.
-              type: boolean
-              default: false
+          
           unless: << pipeline.parameters.run-integration-tests >>
           config-path: service1/.circleci/continue_config.yml
