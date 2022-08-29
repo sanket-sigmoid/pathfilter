@@ -1,12 +1,12 @@
 version: 2.1
 
 parameters:
-  run-workflow-a:
+  run-workflow-b:
     type: boolean
-    default: false 
-  manual-workflow-a:
+    default: false
+  manual-workflow-b:
     type: boolean
-    default: false 
+    default: false
     
 jobs:
   buildjob:
@@ -16,8 +16,8 @@ jobs:
       - run: echo "test"
 
 workflows:
-  workflow-a:
-    when: 
-      or: [<< pipeline.parameters.run-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+  workflow-b:
+    when:
+      or: [<< pipeline.parameters.run-workflow-b >>, << pipeline.parameters.manual-workflow-b >>]
     jobs:
       - buildjob
