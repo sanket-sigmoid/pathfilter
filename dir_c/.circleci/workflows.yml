@@ -32,3 +32,8 @@ workflows:
       or: [<< pipeline.parameters.run-workflow-b >>, << pipeline.parameters.manual-workflow-b >>]
     jobs:
       - buildjob
+  workflow-c:
+    when:
+      or: [<< pipeline.parameters.run-workflow-c >>, << pipeline.parameters.manual-workflow-c >>]
+    jobs:
+      - buildjob
