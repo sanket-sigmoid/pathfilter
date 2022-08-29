@@ -29,7 +29,7 @@ workflows:
             dir_a/.* run-workflow-a true
       - path-filtering/filter:
           name: web
-          base-revision: << pipeline.git.branch >>
+          base-revision: main
           config-path:  .circleci/workflows.yml
           mapping: |
             dir_b/.* run-workflow-b true
