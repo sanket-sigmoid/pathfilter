@@ -1,5 +1,9 @@
 version: 2.1
 
+orbs:
+  path-filtering: circleci/path-filtering@0.1.1
+  continuation: circleci/continuation@0.2.0
+
 parameters:
   run-workflow-a:
     type: boolean
@@ -26,12 +30,6 @@ parameters:
     type: boolean
     default: false
     
-jobs:
-  buildjob:
-    docker:
-      - image: cimg/base:2022.01
-    steps:
-      - run: echo "test"
 
 workflows:
   setup-b:
@@ -45,23 +43,24 @@ workflows:
             - run:
                 command: |
                   echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
-  workflow-a:
+
+  setup-a:
     when: 
-      or: [<< pipeline.parameters.run-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+      or: [<< pipeline.parameters.manual-workflow-a >>]
     jobs:
-      - buildjob
-  workflow-b:
-    when:
-      or: [<< pipeline.parameters.run-workflow-b >>, << pipeline.parameters.manual-workflow-b >>]
+      - path-filtering/filter:
+          base-revision: << pipeline.git.branch >>
+          config-path: .circleci/workflows.yml
+          mapping: |
+            dir_a/.* run-workflow-a true
+  setup-c:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-c >>]
     jobs:
-      - buildjob
-  workflow-c:
-    when:
-      or: [<< pipeline.parameters.run-workflow-c >>, << pipeline.parameters.manual-workflow-c >>]
-    jobs:
-      - buildjob
-  workflow-d:
-    when:
-      or: [<< pipeline.parameters.run-workflow-d >>, << pipeline.parameters.manual-workflow-d >>]
-    jobs:
-      - buildjob
+      - continuation/continue:
+          configuration_path: dir_c/.circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>}' >> /tmp/pipeline-parameters.json
