@@ -1,3 +1,3 @@
 print("This script present in project00 directory")
-for x in range(10):
+for x in range(100):
   print(x)
