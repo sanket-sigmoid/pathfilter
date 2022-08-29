@@ -31,45 +31,5 @@ workflows:
             dir_b/.* run-workflow-b true
             dir_c/.* run-workflow-c true
             dir_d/.* run-workflow-d true
-  setup-a:
-    when: 
-      or: [<< pipeline.parameters.manual-workflow-a >>]
-    jobs:
-      - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
-          config-path: .circleci/workflows.yml
-          mapping: |
-            dir_a/.* run-workflow-a true
-  setup-b:
-    when: 
-      or: [<< pipeline.parameters.manual-workflow-b >> ]
-    jobs:
-      - continuation/continue:
-          configuration_path: dir_b/.circleci/workflows.yml
-          parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
-  setup-c:
-    when: 
-      or: [<< pipeline.parameters.manual-workflow-c >>]
-    jobs:
-      - continuation/continue:
-          configuration_path: dir_c/.circleci/workflows.yml
-          parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>}' >> /tmp/pipeline-parameters.json
-  setup-d:
-    when: 
-      or: [<<pipeline.parameters.manual-workflow-d>>]
-    jobs:
-      - continuation/continue:
-          configuration_path: dir_d/workflows.yml
-          parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-workflow-d": << pipeline.parameters.manual-workflow-d >> }' >> /tmp/pipeline-parameters.json
+
+
