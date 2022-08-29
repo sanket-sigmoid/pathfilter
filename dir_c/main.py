@@ -1,3 +1,3 @@
-print('hello xxx dir c')
+print('helloxx dir c')
 for x in range(10):
   print(x)
