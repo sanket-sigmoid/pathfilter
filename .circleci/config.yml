@@ -20,8 +20,6 @@ parameters:
     
 workflows:
   setup:
-    unless:
-      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>, <<pipeline.parameters.manual-workflow-c>>,  <<pipeline.parameters.manual-workflow-d>>]
     jobs:
       - path-filtering/filter:
           name: service
