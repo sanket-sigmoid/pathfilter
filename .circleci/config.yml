@@ -19,20 +19,19 @@ parameters:
     default: false
     
 workflows:
-  setup:
+  setup-b:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-b >> ]
     jobs:
-      - path-filtering/filter:
-          name: service
-          base-revision: dev
-          config-path:  .circleci/workflows.yml
-          mapping: |
-            dir_a/.* run-workflow-a true
-      - path-filtering/filter:
-          name: web
-          base-revision: main
-          config-path:  .circleci/workflows.yml
-          mapping: |
-            dir_b/.* run-workflow-b true
+      - continuation/continue:
+          configuration_path: dir_b/.circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
+
+
 
 
 
