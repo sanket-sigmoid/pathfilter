@@ -48,11 +48,13 @@ workflows:
     when: 
       or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.run-workflow-a >>]
     jobs:
-      - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
-          config-path: .circleci/workflows.yml
-          mapping: |
-            dir_a/.* run-workflow-a true
+      - continuation/continue:
+          configuration_path: dir_c/.circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>}' >> /tmp/pipeline-parameters.json
   setup-c:
     when: 
       or: [<< pipeline.parameters.manual-workflow-c >>, << pipeline.parameters.run-workflow-c >>]
