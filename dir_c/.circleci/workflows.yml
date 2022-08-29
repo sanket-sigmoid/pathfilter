@@ -1,0 +1,34 @@
+version: 2.1
+
+parameters:
+  run-workflow-a:
+    type: boolean
+    default: false 
+  run-workflow-b:
+    type: boolean
+    default: false
+  manual-workflow-a:
+    type: boolean
+    default: false 
+  manual-workflow-b:
+    type: boolean
+    default: false
+    
+jobs:
+  buildjob:
+    docker:
+      - image: cimg/base:2022.01
+    steps:
+      - run: echo "test"
+
+workflows:
+  workflow-a:
+    when: 
+      or: [<< pipeline.parameters.run-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+    jobs:
+      - buildjob
+  workflow-b:
+    when:
+      or: [<< pipeline.parameters.run-workflow-b >>, << pipeline.parameters.manual-workflow-b >>]
+    jobs:
+      - buildjob

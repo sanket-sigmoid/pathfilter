@@ -11,6 +11,9 @@ parameters:
   manual-workflow-b:
     type: boolean
     default: false
+  manual-workflow-c:
+    type: boolean
+    default: false
     
 workflows:
   setup:
@@ -23,6 +26,7 @@ workflows:
           mapping: |
             dir_a/.* run-workflow-a true
             dir_b/.* run-workflow-b true
+            dir_c/.* run-workflow-c true
   setup-manual:
     when: 
       or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
@@ -36,12 +40,12 @@ workflows:
                   echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
   setup-manual-service:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+      or: [<< pipeline.parameters.manual-workflow-c >>, << pipeline.parameters.manual-workflow-c >>]
     jobs:
       - continuation/continue:
-          configuration_path: dir_a/.circleci/workflows.yml
+          configuration_path: dir_c/.circleci/workflows.yml
           parameters: /tmp/pipeline-parameters.json
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>, "run-workflow-c": << pipeline.parameters.manual-workflow-c >> }' >> /tmp/pipeline-parameters.json
