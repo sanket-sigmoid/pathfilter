@@ -48,4 +48,4 @@ workflows:
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-c": << pipeline.parameters.manual-workflow-c >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
