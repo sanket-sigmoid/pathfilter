@@ -32,6 +32,32 @@ workflows:
             project2/.* project-two true
             project3/.* project-three true
             shared-things/.* run-them-all true
+  project-workflow:
+    jobs:
+      - path-filtering/filter:
+          base-revision: main
+          config-path: .circleci/continue-config.yml
+          mapping: |
+            project00/.* project-one true
+            project01/.* project-two true
+            project02/.* project-three true
+            shared-things/.* run-them-all true
+      - path-filtering/filter:
+          base-revision: main
+          config-path: project00/.circleci/continue-config.yml
+          mapping: |
+            project1/.* project-one true
+            project2/.* project-two true
+            project3/.* project-three true
+            shared-things/.* run-them-all true
+      - path-filtering/filter:
+          base-revision: main
+          config-path: project01/.circleci/continue-config.yml
+          mapping: |
+            project1/.* project-one true
+            project2/.* project-two true
+            project3/.* project-three true
+            shared-things/.* run-them-all true
 
       
 
