@@ -40,6 +40,7 @@ workflows:
           pre-steps:
             - run:
                 command: |
+                  cat dir_a/.circleci/workflows.yml > /tmp/pipeline-parameters.json
                   echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >> }' >> /tmp/pipeline-parameters.json
   setup-b:
     when: 
