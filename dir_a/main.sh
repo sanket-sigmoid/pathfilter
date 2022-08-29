@@ -1,1 +1,1 @@
-echo 'hello dir_a'
+echo 'hello dir_a xx'
