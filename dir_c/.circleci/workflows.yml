@@ -4,12 +4,12 @@ parameters:
   run-workflow-c:
     type: boolean
     default: false
-  manual-workflow-c:
-    type: boolean
-    default: false 
   run-workflow-d:
     type: boolean
     default: false
+  manual-workflow-c:
+    type: boolean
+    default: false 
   manual-workflow-d:
     type: boolean
     default: false 
