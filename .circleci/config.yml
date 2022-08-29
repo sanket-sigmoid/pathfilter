@@ -14,11 +14,14 @@ parameters:
   manual-workflow-c:
     type: boolean
     default: false
+  manual-workflow-d:
+    type: boolean
+    default: false
     
 workflows:
   setup:
     unless:
-      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>, <<pipeline.parameters.manual-workflow-c>>]
+      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>, <<pipeline.parameters.manual-workflow-c>>,  <<pipeline.parameters.manual-workflow-d>>]
     jobs:
       - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
@@ -51,7 +54,7 @@ workflows:
                   echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
   setup-c:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-c >>]
+      or: [<< pipeline.parameters.manual-workflow-c >>, <<pipeline.parameters.manual-workflow-d>>]
     jobs:
       - continuation/continue:
           configuration_path: dir_c/.circleci/workflows.yml
@@ -59,4 +62,4 @@ workflows:
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>, "run-workflow-d": << pipeline.parameters.manual-workflow-d >> }' >> /tmp/pipeline-parameters.json
