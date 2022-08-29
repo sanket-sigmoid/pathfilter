@@ -28,7 +28,7 @@ workflows:
       or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
     jobs:
       - continuation/continue:
-          configuration_path: .circleci/workflows.yml
+          configuration_path: dir_a/.circleci/workflows.yml
           parameters: /tmp/pipeline-parameters.json
           pre-steps:
             - run:
