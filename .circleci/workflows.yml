@@ -34,6 +34,17 @@ jobs:
       - run: echo "test"
 
 workflows:
+  setup-b:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-b >> ]
+    jobs:
+      - continuation/continue:
+          configuration_path: dir_b/.circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
   workflow-a:
     when: 
       or: [<< pipeline.parameters.run-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
