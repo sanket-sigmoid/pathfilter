@@ -30,6 +30,7 @@ workflows:
             dir_a/.* run-workflow-a true
             dir_b/.* run-workflow-b true
             dir_c/.* run-workflow-c true
+            dir_d/.* run-workflow-d true
   setup-a:
     when: 
       or: [<< pipeline.parameters.manual-workflow-a >>]
