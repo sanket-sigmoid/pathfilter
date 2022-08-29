@@ -1,0 +1,23 @@
+version: 2.1
+
+parameters:
+  run-workflow-d:
+    type: boolean
+    default: false
+  manual-workflow-d:
+    type: boolean
+    default: false 
+    
+jobs:
+  buildjob:
+    docker:
+      - image: cimg/base:2022.01
+    steps:
+      - run: echo "test"
+
+workflows:
+  workflow-d:
+    when:
+      or: [<< pipeline.parameters.run-workflow-d >>, << pipeline.parameters.manual-workflow-d >>]
+    jobs:
+      - buildjob

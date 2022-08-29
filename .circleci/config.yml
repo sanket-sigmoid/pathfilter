@@ -55,7 +55,7 @@ workflows:
                   echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
   setup-c:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-c >>, <<pipeline.parameters.manual-workflow-d>>]
+      or: [<< pipeline.parameters.manual-workflow-c >>]
     jobs:
       - continuation/continue:
           configuration_path: dir_c/.circleci/workflows.yml
@@ -64,3 +64,14 @@ workflows:
             - run:
                 command: |
                   echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>, "run-workflow-d": << pipeline.parameters.manual-workflow-d >> }' >> /tmp/pipeline-parameters.json
+  setup-d:
+    when: 
+      or: [<<pipeline.parameters.manual-workflow-d>>]
+    jobs:
+      - continuation/continue:
+          configuration_path: dir_d/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-d": << pipeline.parameters.manual-workflow-d >> }' >> /tmp/pipeline-parameters.json
