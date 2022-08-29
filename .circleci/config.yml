@@ -20,16 +20,10 @@ workflows:
       - continuation/continue:
           configuration_path: dir_a/.circleci/workflows.yml
           parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
+
   setup-manual-service:
     jobs:
       - continuation/continue:
           configuration_path: dir_c/.circleci/workflows.yml
           parameters: /tmp/pipeline-parameters.json
-          pre-steps:
-            - run:
-                command: |
-                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-c": << pipeline.parameters.manual-workflow-c >> }' >> /tmp/pipeline-parameters.json
+
