@@ -16,7 +16,7 @@ workflows:
             project01/.* project-two true
             project02/.* project-three true
             shared-things/.* run-them-all true
-      - path-filtering/filter:
+      - project00-pathfilter:
           base-revision: main
           config-path: .circleci/project00-config.yaml
           mapping: |
