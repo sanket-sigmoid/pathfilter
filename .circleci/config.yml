@@ -13,14 +13,11 @@ workflows:
           config-path: .circleci/continue-config.yml
           mapping: |
             project00/.* project-one true
-      - path-filtering/filter:
-          base-revision: main
-          config-path: .circleci/project00-config.yaml
-          mapping: |
             project01/.* project-one true
             project02/.* project-two true
             project03/.* project-three true
             shared-things/.* run-them-all true
+
 
 
 
