@@ -7,6 +7,12 @@ parameters:
   manual-workflow-c:
     type: boolean
     default: false 
+  run-workflow-d:
+    type: boolean
+    default: false
+  manual-workflow-d:
+    type: boolean
+    default: false 
     
 jobs:
   buildjob:
@@ -19,5 +25,10 @@ workflows:
   workflow-c:
     when:
       or: [<< pipeline.parameters.run-workflow-c >>, << pipeline.parameters.manual-workflow-c >>]
+    jobs:
+      - buildjob
+  workflow-d:
+    when:
+      or: [<< pipeline.parameters.run-workflow-d >>, << pipeline.parameters.manual-workflow-d >>]
     jobs:
       - buildjob
