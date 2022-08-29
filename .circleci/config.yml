@@ -13,10 +13,10 @@ parameters:
     default: false
   manual-workflow-c:
     type: boolean
-    default: true
+    default: false
   manual-workflow-d:
     type: boolean
-    default: true
+    default: false
     
 workflows:
   setup-b:
