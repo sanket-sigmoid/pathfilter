@@ -7,10 +7,10 @@ orbs:
 parameters:
   manual-workflow-a:
     type: boolean
-    default: false 
+    default: true 
   manual-workflow-b:
     type: boolean
-    default: true
+    default: false
   manual-workflow-c:
     type: boolean
     default: false
@@ -30,6 +30,15 @@ workflows:
             - run:
                 command: |
                   echo '{ "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
+  setup-a:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-a >>]
+    jobs:
+      - path-filtering/filter:
+          base-revision: << pipeline.git.branch >>
+          config-path: .circleci/workflows.yml
+          mapping: |
+            dir_a/.* run-workflow-a true
   setup-c:
     when: 
       or: [<< pipeline.parameters.manual-workflow-c >>]
