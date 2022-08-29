@@ -24,12 +24,17 @@ workflows:
       or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>, <<pipeline.parameters.manual-workflow-c>>,  <<pipeline.parameters.manual-workflow-d>>]
     jobs:
       - path-filtering/filter:
+          name: service
           base-revision: << pipeline.git.branch >>
           config-path:  .circleci/workflows.yml
           mapping: |
             dir_a/.* run-workflow-a true
+      - path-filtering/filter:
+          name: web
+          base-revision: << pipeline.git.branch >>
+          config-path:  .circleci/workflows.yml
+          mapping: |
             dir_b/.* run-workflow-b true
-            dir_c/.* run-workflow-c true
-            dir_d/.* run-workflow-d true
+
 
 
