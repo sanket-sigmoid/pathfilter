@@ -34,7 +34,7 @@ parameters:
 workflows:
   setup-b:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-b >> ]
+      or: [<< pipeline.parameters.manual-workflow-b >>, << pipeline.parameters.run-workflow-b >>]
     jobs:
       - continuation/continue:
           configuration_path: dir_b/.circleci/workflows.yml
@@ -46,7 +46,7 @@ workflows:
 
   setup-a:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-a >>]
+      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.run-workflow-a >>]
     jobs:
       - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
@@ -55,7 +55,7 @@ workflows:
             dir_a/.* run-workflow-a true
   setup-c:
     when: 
-      or: [<< pipeline.parameters.manual-workflow-c >>]
+      or: [<< pipeline.parameters.manual-workflow-c >>, << pipeline.parameters.run-workflow-c >>]
     jobs:
       - continuation/continue:
           configuration_path: dir_c/.circleci/workflows.yml
