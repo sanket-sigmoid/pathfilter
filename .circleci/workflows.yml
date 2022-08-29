@@ -2,8 +2,8 @@ version: 2.1
 
 orbs:
   continuation: circleci/continuation@0.2.0
+  path-filtering: circleci/path-filtering@0.1.1
 
-setup: true
 parameters:
   run-workflow-a:
     type: boolean
