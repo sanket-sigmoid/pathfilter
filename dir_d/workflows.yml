@@ -6,7 +6,7 @@ parameters:
     default: false
   manual-workflow-d:
     type: boolean
-    default: false 
+    default: false
     
 jobs:
   buildjob:
