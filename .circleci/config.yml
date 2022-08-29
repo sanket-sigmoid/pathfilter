@@ -1,48 +1,36 @@
 version: 2.1
-
-# this allows you to use CircleCI's dynamic configuration feature
 setup: true
-
-# the path-filtering orb is required to continue a pipeline based on
-# the path of an updated fileset
 orbs:
   path-filtering: circleci/path-filtering@0.1.1
-
+  continuation: circleci/continuation@0.2.0
+  
 parameters:
-  run-integration-tests:
-    description: An internal flag to prevent integration test from running before a development version has been created.
+  manual-workflow-a:
+    type: boolean
+    default: false 
+  manual-workflow-b:
     type: boolean
     default: false
-
+    
 workflows:
-  # the always-run workflow is always triggered, regardless of the pipeline parameters.
-  always-run:
+  setup:
+    unless:
+      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
     jobs:
-      # the path-filtering/filter job determines which pipeline
-      # parameters to update.
       - path-filtering/filter:
-          name: check-updated-files-service1
-          # 3-column, whitespace-delimited mapping. One mapping per
-          # line:
-          # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
+          base-revision: << pipeline.git.branch >>
+          config-path: .circleci/workflows.yml
           mapping: |
-            service1/.* run-build-service-1-job true
-          base-revision: main
-          # this is the path of the configuration we should trigger once
-          # path filtering and pipeline parameter value updates are
-          # complete. In this case, we are using the parent dynamic
-          # configuration itself.
-          config-path: service1/.circleci/continue_config.yml
-      - path-filtering/filter:
-          name: check-updated-files-service2
-          # 3-column, whitespace-delimited mapping. One mapping per
-          # line:
-          # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
-          mapping: |
-            service2/.* run-build-service-2-job true
-          base-revision: main
-          # this is the path of the configuration we should trigger once
-          # path filtering and pipeline parameter value updates are
-          # complete. In this case, we are using the parent dynamic
-          # configuration itself.
-          config-path: service1/.circleci/continue_config.yml
+            dir_a/.* run-workflow-a true
+            dir_b/.* run-workflow-b true
+  setup-manual:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+    jobs:
+      - continuation/continue:
+          configuration_path: .circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >>, "run-workflow-b": << pipeline.parameters.manual-workflow-b >> }' >> /tmp/pipeline-parameters.json
