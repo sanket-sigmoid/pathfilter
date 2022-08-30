@@ -33,9 +33,9 @@ commands:
   steps:
     - run:
         command: |+
-          #!/usr/bin/env python3
-          print("this is test program")
-        shell: /usr/bin/env python3 
+          #!/usr/bin/env bash
+          echo "hello"
+        shell: /usr/bin/env bash
   
 workflows:
   setup:
