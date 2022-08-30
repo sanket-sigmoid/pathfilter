@@ -31,16 +31,6 @@ parameters:
     default: false
     
 workflows:
-  setup:
-    unless:
-      or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
-    jobs:
-      - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
-          config-path: .circleci/workflows.yml
-          mapping: |
-            dir_a/.* run-workflow-a true
-            dir_b/.* run-workflow-b true
   setup-c:
     when: 
       or: [<< pipeline.parameters.manual-workflow-c >>, << pipeline.parameters.run-workflow-c >>]
