@@ -30,8 +30,12 @@ parameters:
     type: boolean
     default: false
 commands:
-  steps:
-    - run: echo 'Image'
+  print:
+    parameters:
+      message:
+        type: string
+    steps:
+      - run: echo << parameters.message >>
   
 workflows:
   setup:
