@@ -36,6 +36,15 @@ commands:
         type: string
     steps:
       - run: echo << parameters.message >>
+      
+jobs:
+  print-job:
+    docker:
+      - image: cimg/base
+
+    steps:
+      - greeting:
+          to: "My-Name"
   
 workflows:
   setup:
