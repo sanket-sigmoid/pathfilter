@@ -28,7 +28,12 @@ parameters:
   manual-workflow-d:
     type: boolean
     default: false
-    
+jobs:
+  buildjob:
+    docker:
+      - image: cimg/base:2022.01
+    steps:
+      - run: echo "test"   
 
 workflows:
   workflow-a:
