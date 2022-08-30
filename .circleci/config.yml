@@ -30,11 +30,35 @@ parameters:
     type: boolean
     default: false
 commands:
+    set-parameters:
+        description: |
+            Generates a set of pipeline parameters from `mapping` at `output-path`.
+        parameters:
+            base-revision:
+                default: main
+                description: |
+                    The revision to compare the current one against for the purpose of determining changed files.
+                type: string
+            mapping:
+                default: ""
+                description: |
+                    Mapping of path regular expressions to pipeline parameters and values. One mapping per line, whitespace-delimited.
+                type: string
+            output-path:
+                default: /tmp/pipeline-parameters.json
+                description: |
+                    Path to save the generated parameters to.
+                type: string
   steps:
     - run:
         command: |+
           #!/usr/bin/env bash
           echo "hello"
+        environment:
+          BASE_REVISION: << parameters.base-revision >>
+          MAPPING: << parameters.mapping >>
+          OUTPUT_PATH: << parameters.output-path >>
+        name: Set parameters
         shell: /usr/bin/env bash
   
 workflows:
