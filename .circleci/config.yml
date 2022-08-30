@@ -25,7 +25,7 @@ parameters:
     default: false
   manual-workflow-c:
     type: boolean
-    default: false
+    default: true
   manual-workflow-d:
     type: boolean
     default: false
