@@ -43,8 +43,8 @@ jobs:
       - image: cimg/base
 
     steps:
-      - greeting:
-          to: "My-Name"
+      - print:
+          message: "My-Name"
   
 workflows:
   setup:
