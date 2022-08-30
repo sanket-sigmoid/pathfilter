@@ -18,13 +18,13 @@ parameters:
     default: false
   manual-workflow-a:
     type: boolean
-    default: true 
+    default: false 
   manual-workflow-b:
     type: boolean
-    default: true
+    default: false
   manual-workflow-c:
     type: boolean
-    default: true
+    default: false
   manual-workflow-d:
     type: boolean
     default: false

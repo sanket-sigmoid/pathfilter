@@ -13,7 +13,7 @@ parameters:
     default: false
   manual-workflow-c:
     type: boolean
-    default: false
+    default: true
     
 workflows:
   setup:
@@ -26,4 +26,14 @@ workflows:
           mapping: |
             dir_a/.* run-workflow-a true
             dir_b/.* run-workflow-b true
-            dir_c/.* run-workflow-c true
+  setup-c:
+    when: 
+      or: [<< pipeline.parameters.manual-workflow-c >>, << pipeline.parameters.run-workflow-c >>]
+    jobs:
+      - continuation/continue:
+          configuration_path: dir_c/.circleci/workflows.yml
+          parameters: /tmp/pipeline-parameters.json
+          pre-steps:
+            - run:
+                command: |
+                  echo '{ "run-workflow-c": << pipeline.parameters.manual-workflow-c >>}' >> /tmp/pipeline-parameters.json
