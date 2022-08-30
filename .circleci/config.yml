@@ -51,6 +51,7 @@ workflows:
     unless:
       or: [<< pipeline.parameters.manual-workflow-a >>, << pipeline.parameters.manual-workflow-a >>, <<pipeline.parameters.manual-workflow-c>>,  <<pipeline.parameters.manual-workflow-d>>]
     jobs:
+      - print-job
       - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
           config-path:  .circleci/workflows.yml
