@@ -40,7 +40,7 @@ commands:
 jobs:
   print-job:
     docker:
-      - image: cimg/base
+      - image: cimg/base:stable
 
     steps:
       - print:
