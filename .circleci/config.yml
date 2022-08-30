@@ -36,6 +36,7 @@ commands:
         type: string
     steps:
       - run: echo << parameters.message >>
+      - run: git log --raw
       
 jobs:
   print-job:
