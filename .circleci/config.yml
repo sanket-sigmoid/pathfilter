@@ -8,6 +8,9 @@ parameters:
   setup-a:
      type: boolean
      default: false
+  setup-b:
+     type: boolean
+     default: false
   manual-workflow-a:
     type: boolean
     default: false 
@@ -47,7 +50,7 @@ workflows:
                   echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >> }' >> /tmp/pipeline-parameters.json
   setup-b:
     when: 
-      or: [<< pipeline.parameters.run-workflow-b >> ]
+      or: [<< pipeline.parameters.setup-b >> ]
     jobs:
       - continuation/continue:
           configuration_path: dir_b/.circleci/workflows.yml

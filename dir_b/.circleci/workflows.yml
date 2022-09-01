@@ -1,6 +1,9 @@
 version: 2.1
 
 parameters:
+  setup-b:
+    type: boolean
+    default: false
   run-workflow-b:
     type: boolean
     default: false
