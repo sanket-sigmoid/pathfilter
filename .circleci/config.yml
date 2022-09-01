@@ -36,7 +36,7 @@ parameters:
 workflows:
   setup-a:
     when: 
-      or: [<< pipeline.parameters.setup >>]
+      or: [<< pipeline.parameters.setup-a >>]
     jobs:
       - continuation/continue:
           configuration_path: dir_a/.circleci/workflows.yml
