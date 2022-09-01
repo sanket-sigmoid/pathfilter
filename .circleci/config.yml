@@ -5,9 +5,9 @@ orbs:
   continuation: circleci/continuation@0.2.0
   
 parameters:
-  workflow-a:
+  manual-workflow-a:
     type: boolean
-    default: true 
+    default: false 
   manual-workflow-b:
     type: boolean
     default: false
@@ -17,9 +17,9 @@ parameters:
   manual-workflow-d:
     type: boolean
     default: false
-  run-a:
+  run-workflow-a:
     type: boolean
-    default: true
+    default: false
   run-workflow-b:
     type: boolean
     default: false
@@ -33,7 +33,7 @@ parameters:
 workflows:
   setup-a:
     when: 
-      or: [<< pipeline.parameters.run-a >>]
+      or: [<< pipeline.parameters.run-workflow-a >>]
     jobs:
       - continuation/continue:
           configuration_path: dir_a/.circleci/workflows.yml
@@ -41,7 +41,7 @@ workflows:
           pre-steps:
             - run:
                 command: |
-                  echo '{ "run-a": << pipeline.parameters.workflow-a >> }' >> /tmp/pipeline-parameters.json
+                  echo '{ "run-workflow-a": << pipeline.parameters.manual-workflow-a >> }' >> /tmp/pipeline-parameters.json
   setup-b:
     when: 
       or: [<< pipeline.parameters.run-workflow-b >> ]
