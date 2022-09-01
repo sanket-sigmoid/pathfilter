@@ -10,7 +10,7 @@ parameters:
     default: false 
   manual-workflow-b:
     type: boolean
-    default: true
+    default: false
   manual-workflow-c:
     type: boolean
     default: false
@@ -22,7 +22,7 @@ parameters:
     default: false
   run-workflow-b:
     type: boolean
-    default: true
+    default: false
   run-workflow-c:
     type: boolean
     default: false
