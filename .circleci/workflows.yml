@@ -4,7 +4,7 @@ orbs:
   continuation: circleci/continuation@0.2.0
 
 parameters:
-  run-workflow-a:
+  setup-a:
     type: boolean
     default: false 
   run-workflow-b:
@@ -38,7 +38,7 @@ jobs:
 workflows:
   workflow-a:
     when: 
-      or: [<< pipeline.parameters.run-workflow-a >>, << pipeline.parameters.manual-workflow-a >>]
+      or: [<< pipeline.parameters.setuo-a >>, << pipeline.parameters.manual-workflow-a >>]
     jobs:
       - buildjob
   workflow-b:
