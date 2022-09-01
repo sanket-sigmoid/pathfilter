@@ -7,7 +7,7 @@ orbs:
 parameters:
   manual-workflow-a:
     type: boolean
-    default: false 
+    default: true 
   manual-workflow-b:
     type: boolean
     default: false
@@ -19,7 +19,7 @@ parameters:
     default: false
   run-workflow-a:
     type: boolean
-    default: false
+    default: true
   run-workflow-b:
     type: boolean
     default: false
