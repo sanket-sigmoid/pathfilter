@@ -3,7 +3,10 @@ version: 2.1
 parameters:
   setup-a:
     type: boolean
-    default: false 
+    default: false
+  run-workflow-a:
+    type: boolean
+    default: false
   manual-workflow-a:
     type: boolean
     default: false 
